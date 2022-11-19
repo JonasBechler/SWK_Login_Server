@@ -5,6 +5,8 @@ module.exports = function( config ) {
   const router = express.Router();
   const request = require('request');
 
+  const token_handler = require('../helpers/token_handler')(config);
+
 
 
   router.get('/', (req, res) => {
@@ -12,36 +14,25 @@ module.exports = function( config ) {
     // token in session -> get user data and send it back to the react app
 
     if (req.session.token) {
-      request(
-        // POST request to /introspect endpoint
-        {
-          method: 'POST',
-          uri: `${config.device_ip}:${config.fusionauth_port}/oauth2/introspect`,
-          form: {
-            'client_id': config.fusionauth.client_id,
-            'token': req.session.token
-          }
-        },
 
-        // callback
-        (error, response, body) => {
-          let introspectResponse = JSON.parse(body);
-          introspectResponse.token = req.session.token
+      function valid_callback(introspectResponse) {
 
-          // valid token -> get more user data and send it back to the react app
-          if (introspectResponse.active) {
+        introspectResponse.token = req.session.token
+        // valid token -> get more user data and send it back to the react app
+        if (introspectResponse.active) {
 
-            return res.send(introspectResponse).end();
-              
-          }
-
-          // expired token -> send nothing
-          else {
-            req.session.destroy();
-            res.send({}).end();
-          }
+          res.send(introspectResponse).end();
+            
         }
-      );
+
+        // expired token -> send nothing
+        else {
+          req.session.destroy();
+          res.send({}).end();
+        }
+			}
+
+			token_handler.valid(req.session.token, valid_callback)
     }
 
     // no token -> send nothing

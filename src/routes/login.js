@@ -10,21 +10,25 @@ module.exports = function ( config ) {
 	router.get('/', (req, res) => {
 		
 		if (req.session.token) {
+
 			function valid_callback(introspectResponse) {
-				console.log(introspectResponse);
+
 				if (introspectResponse.active){
-					console.log("redirect");
 					res.redirect("/")
 				}
 				else{
 					token_handler.redirect_fusionauth(req, res)
 				}
+
 			}
 
 			token_handler.valid(req.session.token, valid_callback)
+
 		}
 		else{
+
 			token_handler.redirect_fusionauth(req, res)
+
 		}
 		
 	});
