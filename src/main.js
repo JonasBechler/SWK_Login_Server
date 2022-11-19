@@ -50,7 +50,7 @@ module.exports = function (config, userDataPath) {
 
 	app.use('/api/user', require('./routes/user')(config));
 	app.use('/api/logout', require('./routes/logout')(config));
-	app.use('/oauth_callback', require('./routes/callback_fusionauth')(config));
+	app.use('/api/oauth_callback', require('./routes/callback_fusionauth')(config));
 
 	app.use('/', (req, res, next) => {
 		res.redirect(`${config.device_ip}:${config.port_react}`)
