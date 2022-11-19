@@ -26,6 +26,7 @@ module.exports = function( config ) {
         // callback
         (error, response, body) => {
           let introspectResponse = JSON.parse(body);
+          introspectResponse.token = req.session.token
 
           // valid token -> get more user data and send it back to the react app
           if (introspectResponse.active) {

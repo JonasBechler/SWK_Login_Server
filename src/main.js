@@ -46,14 +46,16 @@ module.exports = function (config, userDataPath) {
 	// app.use(express.static(frontend_dir));
 	// app.use(express.static("public"));
 
+	app.use('/login', require('./routes/login')(config));
+
 	app.use('/api/user', require('./routes/user')(config));
-	app.use('/api/login_kn', require('./routes/login')(config));
 	app.use('/api/logout', require('./routes/logout')(config));
 	app.use('/oauth_callback', require('./routes/callback_fusionauth')(config));
 
 	app.use('/', (req, res, next) => {
+		res.redirect(`${config.device_ip}:${config.port_react}`)
 		// res.sendFile(path.join(frontend_dir, "index.html"));
-		return
+		//return
 	})
 
 	return app
