@@ -1,6 +1,5 @@
 {
     "client_id": "01088283-60aa-4849-8a52-34370257fdd8",
     "client_secret": "lgF0MuQqIto_VQl9L2-Emxwy3sA8Oki9BbJQcT6tlas",
-    "redirect_uri": "/oauth_callback",
-    "api_key": "u8OZIsxVFAv-vlHt35nUnuVOrHSj_lxqpyTvdMbyBEcr5_TqZMZ6PcoI"
+    "redirect_uri": "/api/oauth_callback",
 }
