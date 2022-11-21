@@ -4,30 +4,29 @@ module.exports = function ( config ) {
 	const express = require('express');
 	const router = express.Router();
 
-	const token_handler = require('../helpers/token_handler')(config);
+	const fusionauth = require("../SWK_Fusionauth_Handler/index")(config)
+
 
 
 	router.get('/', (req, res) => {
 		
 		if (req.session.token) {
 
-			function valid_callback(introspectResponse) {
-
+			fusionauth.introspect(req.session.token, introspectResponse => {
 				if (introspectResponse.active){
 					res.redirect("/")
 				}
 				else{
-					token_handler.redirect_fusionauth(req, res)
+					fusionauth.login.redirect(req, res)
+					
 				}
+			})
 
-			}
-
-			token_handler.valid(req.session.token, valid_callback)
 
 		}
 		else{
 
-			token_handler.redirect_fusionauth(req, res)
+			fusionauth.login.redirect(req, res)
 
 		}
 		

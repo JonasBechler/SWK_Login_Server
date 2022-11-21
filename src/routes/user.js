@@ -3,9 +3,9 @@ module.exports = function( config ) {
 
   const express = require('express');
   const router = express.Router();
-  const request = require('request');
 
-  const token_handler = require('../helpers/token_handler')(config);
+  const fusionauth = require("../SWK_Fusionauth_Handler/index")(config)
+
 
 
 
@@ -14,9 +14,7 @@ module.exports = function( config ) {
     // token in session -> get user data and send it back to the react app
 
     if (req.session.token) {
-
-      function valid_callback(introspectResponse) {
-
+      fusionauth.introspect(req.session.token, introspectResponse =>{
         introspectResponse.token = req.session.token
         // valid token -> get more user data and send it back to the react app
         if (introspectResponse.active) {
@@ -30,9 +28,7 @@ module.exports = function( config ) {
           req.session.destroy();
           res.send({}).end();
         }
-			}
-
-			token_handler.valid(req.session.token, valid_callback)
+      })
     }
 
     // no token -> send nothing
