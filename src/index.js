@@ -11,7 +11,7 @@ config.fusionauth = fusionAuth_config
 
 const frontend_dir = path.join(__dirname, "..", "..", "react", "build")
 
-var app = require('./main')(config)
+var app = require('./main')(config, "", frontend_dir)
 
 
 app.listen(config.port);
