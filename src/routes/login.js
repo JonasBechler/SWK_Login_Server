@@ -12,17 +12,16 @@ module.exports = function ( config ) {
 		
 		if (req.session.token) {
 
-			fusionauth.introspect(req.session.token, introspectResponse => {
-				if (introspectResponse.active){
-					res.redirect("/")
-				}
-				else{
-					fusionauth.login.redirect(req, res)
-					
-				}
-			})
-
-
+			fusionauth.introspect(req.session.token)
+				.then(introspectResponse => {
+					if (introspectResponse.active){
+						res.redirect("/")
+					}
+					else{
+						fusionauth.login.redirect(req, res)
+						
+					}
+				})
 		}
 		else{
 
