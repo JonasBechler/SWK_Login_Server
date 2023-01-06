@@ -19,7 +19,6 @@ module.exports = function ( config ) {
 					}
 					else{
 						fusionauth.login.redirect(req, res)
-						
 					}
 				})
 		}
