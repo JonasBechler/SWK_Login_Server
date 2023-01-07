@@ -2,12 +2,11 @@
 const path = require('path');
 
 const config = require('../../config.json')
-const fusionAuth_config = require('../fusionauth_config.json')
 
 config.port = config.login.port
 config.port_react = config.login.port_react
 config.session_secret = config.login.session_secret
-config.fusionauth = fusionAuth_config
+config.fusionauth = config.login.fusionauth
 
 const frontend_dir = path.join(__dirname, "..", "..", "SWK_Login_React", "build")
 
