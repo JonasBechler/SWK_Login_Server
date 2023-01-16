@@ -1,8 +1,12 @@
 
 const path = require('path');
 
-const config = require('../../config.json')
-
+let config = null;
+try{
+    config = require( "../../../config.json");
+}catch(error){
+    config = require( "../config.json");
+}
 config.port = config.login.port
 config.port_react = config.login.port_react
 config.session_secret = config.login.session_secret
