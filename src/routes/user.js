@@ -19,6 +19,7 @@ module.exports = function( config ) {
 					//introspectResponse.token = req.session.token
 					// valid token -> get more user data and send it back to the react app
 					if (introspectResponse.active) {
+						const iat_date = new Date(introspectResponse.iat*1000)
 						const exp_date = new Date(introspectResponse.exp*1000)
 
 						const data = {
@@ -26,6 +27,7 @@ module.exports = function( config ) {
 								"email": "E-Mail",
 								"email_verified": "E-Mail verifiziert",
 								"knlogin_id": "FusionAuth-ID",
+								"iat_date":"Erstellungszeit",
 								"exp_date":"Ablaufzeit",								
 								
 							},
@@ -33,6 +35,7 @@ module.exports = function( config ) {
 								"email": ""+introspectResponse.email,
 								"email_verified": introspectResponse.email_verified?"verifiziert":"nicht verifiziert",
 								"knlogin_id": ""+introspectResponse.sub,
+								"iat_date":""+iat_date.getHours()+":"+iat_date.getMinutes()+":"+iat_date.getSeconds(),
 								"exp_date":""+exp_date.getHours()+":"+exp_date.getMinutes()+":"+exp_date.getSeconds(),		
 							}
 						}
