@@ -35,8 +35,8 @@ module.exports = function( config ) {
 								"email": ""+introspectResponse.email,
 								"email_verified": introspectResponse.email_verified?"verifiziert":"nicht verifiziert",
 								"knlogin_id": ""+introspectResponse.sub,
-								"iat_date":""+iat_date.getHours()+":"+iat_date.getMinutes()+":"+iat_date.getSeconds(),
-								"exp_date":""+exp_date.getHours()+":"+exp_date.getMinutes()+":"+exp_date.getSeconds(),		
+								"iat_date":""+(iat_date.getHours()+1)+":"+iat_date.getMinutes()+":"+iat_date.getSeconds(),
+								"exp_date":""+(exp_date.getHours()+1)+":"+exp_date.getMinutes()+":"+exp_date.getSeconds(),		
 							}
 						}
 
